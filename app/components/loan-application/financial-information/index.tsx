@@ -22,7 +22,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
   } = useForm<FinancialInformation>({
     resolver: zodResolver(FinancialInformationSchema),
     defaultValues: props.values,
-    mode: "onBlur",
+    mode: "onChange",
   })
 
   return (

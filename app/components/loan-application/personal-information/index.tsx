@@ -17,8 +17,8 @@ export function PersonalInformation(props: PersonalInformationProps) {
   } = useForm<PersonalInformation>({
     resolver: zodResolver(PersonalInformationSchema),
     defaultValues: props.values,
-    mode: "onBlur",
-  });
+    mode: "onChange",
+  })
 
   return (
     <Step title="(1) Personal Information">

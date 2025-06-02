@@ -18,8 +18,8 @@ export function ContactDetails(props: ContactDetailsProps) {
   } = useForm<ContractDetails>({
     resolver: zodResolver(ContractDetailsSchema),
     defaultValues: props.values,
-    mode: "onBlur",
-  });
+    mode: "onChange",
+  })
 
   return (
     <Step title="(2) Contract Details">

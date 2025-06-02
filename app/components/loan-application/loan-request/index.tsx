@@ -18,8 +18,8 @@ export function LoanRequest(props: LoanRequestProps) {
   } = useForm<LoanRequest>({
     resolver: zodResolver(LoanRequestSchema),
     defaultValues: props.values,
-    mode: "onBlur",
-  });
+    mode: "onChange",
+  })
 
   return (
     <Step title="(3) Loan Request">

@@ -32,7 +32,7 @@ export function Finalization(props: FinalizationProps) {
         onSubmit={handleSubmit(props.onFinalize)}
         className="flex flex-col space-y-4"
       >
-        <div className="flex flex-col space-y-3 mt-5">
+        <div className="flex flex-col space-y-3 mb-3">
           {Object.entries(values).map(([key, value]) => (
             <div key={key}>
               {toSentenceCase(key)} - <span className="font-bold">{value}</span>
