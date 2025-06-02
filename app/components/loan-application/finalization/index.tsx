@@ -4,13 +4,14 @@ import { Step } from "~/components/step";
 import { FinalizationSchema, type Finalization } from "./schema";
 import { Button } from "~/components/button";
 import { getValues, toSentenceCase } from "~/utils";
-import type { LoanApplication } from "../schema";
+import { type LoanApplication } from "../schema"
 
 type FinalizationProps = {
-  values: Partial<LoanApplication>;
-  onFinalize: (data: Finalization) => void;
-  onPrevious?: () => void;
-};
+  values: Partial<LoanApplication>
+  onFinalize: (data: Finalization) => void
+  onPrevious?: () => void
+}
+
 
 export function Finalization(props: FinalizationProps) {
   const {

@@ -17,13 +17,13 @@ export function FinancialInformation(props: FinancialInformationProps) {
   const {
     register,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FinancialInformation>({
     resolver: zodResolver(FinancialInformationSchema),
     defaultValues: props.values,
     mode: "onBlur",
-  });
+  })
 
   return (
     <Step title="(4) Financial Information">
@@ -63,7 +63,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
               {...register("additionalIncomeEnabled")}
             />
           </label>
-          {getValues("additionalIncomeEnabled") && (
+          {watch("additionalIncomeEnabled") && (
             <>
               <input
                 {...register("additionalIncome", { valueAsNumber: true })}
@@ -92,7 +92,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
               {...register("mortgageEnabled")}
             />
           </label>
-          {getValues("mortgageEnabled") && (
+          {watch("mortgageEnabled") && (
             <>
               <input
                 {...register("mortgage", { valueAsNumber: true })}
@@ -121,7 +121,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
               {...register("otherCreditsEnabled")}
             />
           </label>
-          {getValues("otherCreditsEnabled") && (
+          {watch("otherCreditsEnabled") && (
             <>
               <input
                 {...register("otherCredits", { valueAsNumber: true })}
@@ -155,7 +155,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
         </div>
       </form>
     </Step>
-  );
+  )
 }
 
 export { FinancialInformationSchema };
