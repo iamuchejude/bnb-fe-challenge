@@ -19,24 +19,24 @@ export const LoanApplicationSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Age + loan term must be less than 80 years",
-        path: ["terms"],
-      });
+        path: ["confirmed"],
+      })
     }
 
     if (hasOverpaidUpfront(data)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Upfront payment must be less than loan amount",
-        path: ["upfrontPayment"],
-      });
+        path: ["confirmed"],
+      })
     }
 
     if (hasOverpaidUpfront(data)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Upfront payment must be less than loan amount",
-        path: ["upfrontPayment"],
-      });
+        path: ["confirmed"],
+      })
     }
 
     if (!canAfford(data)) {

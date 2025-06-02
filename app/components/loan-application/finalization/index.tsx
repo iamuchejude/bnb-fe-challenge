@@ -3,15 +3,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Step } from "~/components/step";
 import { FinalizationSchema, type Finalization } from "./schema";
 import { Button } from "~/components/button";
-import { getValues, toSentenceCase } from "~/utils";
+import { getValues } from "~/utils"
 import { type LoanApplication } from "../schema"
+import { toCleanEntries, toSentenceCase, toStringValue } from "./utils"
 
 type FinalizationProps = {
   values: Partial<LoanApplication>
   onFinalize: (data: Finalization) => void
   onPrevious?: () => void
 }
-
 
 export function Finalization(props: FinalizationProps) {
   const {
@@ -21,10 +21,7 @@ export function Finalization(props: FinalizationProps) {
   } = useForm<Finalization>({
     resolver: zodResolver(FinalizationSchema),
     defaultValues: getValues(props.values, FinalizationSchema),
-  });
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { confirmed, ...values } = props.values;
+  })
 
   return (
     <Step title="(5) Confirm Information">
@@ -33,9 +30,10 @@ export function Finalization(props: FinalizationProps) {
         className="flex flex-col space-y-4"
       >
         <div className="flex flex-col space-y-3 mb-3">
-          {Object.entries(values).map(([key, value]) => (
+          {toCleanEntries(props.values).map(([key, value]) => (
             <div key={key}>
-              {toSentenceCase(key)} - <span className="font-bold">{value}</span>
+              {toSentenceCase(key)} -{" "}
+              <span className="font-bold">{toStringValue(value)}</span>
             </div>
           ))}
         </div>
