@@ -11,7 +11,7 @@ export const PersonalInformationSchema = z.object({
     .min(1, "Firstname cannot be empty")
     .regex(
       GERMAN_LATIN_RE,
-      "Firstname must contain only Latin and German letters",
+      "Firstname must contain only Latin and German letters"
     )
     .refine((val) => !val.includes(" "), "Only single name allowed"),
 
@@ -20,7 +20,7 @@ export const PersonalInformationSchema = z.object({
     .min(1, "Lastname cannot be empty")
     .regex(
       GERMAN_LATIN_MULTIWORD_RE,
-      "Lastname must contain only Latin and German letters",
+      "Lastname must contain only Latin and German letters"
     ),
 
   dateOfBirth: z.string().refine((val) => {

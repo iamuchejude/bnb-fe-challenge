@@ -1,14 +1,10 @@
 import { getApplication } from "~/data";
 import type { Route } from "../+types/root";
 import { useLoaderData } from "react-router";
-import {
-  LoanApplication,
-} from "../components/loan-application";
+import { LoanApplication } from "../components/loan-application";
 
 export function meta() {
-  return [
-    { title: "BnB" },
-  ];
+  return [{ title: "BnB" }];
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -16,7 +12,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const applicationId = searchParams.get("id");
   if (!applicationId) return {};
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {uuid, ...data} = await getApplication(applicationId);
+  const { uuid, ...data } = await getApplication(applicationId);
   return data;
 }
 

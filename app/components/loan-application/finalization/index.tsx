@@ -3,15 +3,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Step } from "~/components/step";
 import { FinalizationSchema, type Finalization } from "./schema";
 import { Button } from "~/components/button";
-import { getValues } from "~/utils"
-import { type LoanApplication } from "../schema"
-import { toCleanEntries, toSentenceCase, toStringValue } from "./utils"
+import { getValues } from "~/utils";
+import { type LoanApplication } from "../schema";
+import { toCleanEntries, toSentenceCase, toStringValue } from "./utils";
 
 type FinalizationProps = {
-  values: Partial<LoanApplication>
-  onFinalize: (data: Finalization) => void
-  onPrevious?: () => void
-}
+  values: Partial<LoanApplication>;
+  onFinalize: (data: Finalization) => void;
+  onPrevious?: () => void;
+};
 
 export function Finalization(props: FinalizationProps) {
   const {
@@ -21,7 +21,7 @@ export function Finalization(props: FinalizationProps) {
   } = useForm<Finalization>({
     resolver: zodResolver(FinalizationSchema),
     defaultValues: getValues(props.values, FinalizationSchema),
-  })
+  });
 
   return (
     <Step title="(5) Confirm Information">
@@ -75,7 +75,7 @@ export function Finalization(props: FinalizationProps) {
         </div>
       </form>
     </Step>
-  )
+  );
 }
 
 export { FinalizationSchema };

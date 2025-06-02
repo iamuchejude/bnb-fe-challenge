@@ -12,13 +12,13 @@ export async function getApplication(id: string) {
   const response = await fetch(`${BASE_ENDPOINT}/entities/${id}`, {
     headers: { "Content-Type": "application/json" },
   });
-  const data = await response.json()
+  const data = await response.json();
   return data as LoanApplicationEntity;
 }
 
 export async function createOrUpdateApplication(
   application: TLoanApplication,
-  id?: string | null,
+  id?: string | null
 ) {
   if (!id) return createApplication(application);
   return updateApplication(id, application);

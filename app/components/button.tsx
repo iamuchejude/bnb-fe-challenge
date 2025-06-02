@@ -6,7 +6,7 @@ type ButtonProps = {
   className?: string;
   variant: "primary" | "secondary";
   disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export function Button({

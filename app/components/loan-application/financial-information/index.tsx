@@ -23,7 +23,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
     resolver: zodResolver(FinancialInformationSchema),
     defaultValues: props.values,
     mode: "onChange",
-  })
+  });
 
   return (
     <Step title="(4) Financial Information">
@@ -155,7 +155,7 @@ export function FinancialInformation(props: FinancialInformationProps) {
         </div>
       </form>
     </Step>
-  )
+  );
 }
 
 export { FinancialInformationSchema };

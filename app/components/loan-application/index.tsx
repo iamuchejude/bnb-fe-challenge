@@ -1,87 +1,87 @@
-import { useNavigate, useSearchParams } from "react-router"
-import { useCallback, useEffect, useState } from "react"
-import { z } from "zod"
+import { useNavigate, useSearchParams } from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { z } from "zod";
 import {
   PersonalInformation,
   PersonalInformationSchema,
-} from "./personal-information"
+} from "./personal-information";
 import {
   FinancialInformation,
   FinancialInformationSchema,
-} from "./financial-information"
-import { getValues as $getValues, notify } from "~/utils"
-import { createOrUpdateApplication } from "~/data"
-import { ContactDetails, ContractDetailsSchema } from "./contract-details"
-import { LoanRequest, LoanRequestSchema } from "./loan-request"
-import { Steps, useSteps } from "../../hooks/use-steps"
-import { type LoanApplication } from "./schema"
-import { Finalization } from "./finalization"
+} from "./financial-information";
+import { getValues as $getValues, notify } from "~/utils";
+import { createOrUpdateApplication } from "~/data";
+import { ContactDetails, ContractDetailsSchema } from "./contract-details";
+import { LoanRequest, LoanRequestSchema } from "./loan-request";
+import { Steps, useSteps } from "../../hooks/use-steps";
+import { type LoanApplication } from "./schema";
+import { Finalization } from "./finalization";
 
 type LoanApplicationProps = {
-  values?: Partial<LoanApplication>
-}
+  values?: Partial<LoanApplication>;
+};
 
 export function LoanApplication(props: LoanApplicationProps) {
-  const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [values, setValues] = useState<Partial<LoanApplication>>(
     props.values || {}
-  )
-  const { isCurrent, onNext, onPrevious } = useSteps(Steps.PersonalInformation)
+  );
+  const { isCurrent, onNext, onPrevious } = useSteps(Steps.PersonalInformation);
 
   useEffect(() => {
     setValues((currentValues) => ({
       ...currentValues,
       ...props.values,
-    }))
-  }, [props.values])
+    }));
+  }, [props.values]);
 
   const handleOnFinalize = useCallback(
     (data: Partial<LoanApplication>) => {
-      const id = searchParams.get("id")
-      const updatedValues = { ...values, ...data }
+      const id = searchParams.get("id");
+      const updatedValues = { ...values, ...data };
       createOrUpdateApplication(updatedValues, id)
         .then(() => {
           notify(
             "success",
             "We've received your application! We'll now review and get back to you"
-          )
-          setValues({})
-          navigate("/")
+          );
+          setValues({});
+          navigate("/");
         })
         .catch(() => {
           notify(
             "error",
             "Failed to finalize application. Please try again later"
-          )
-        })
+          );
+        });
     },
     [values, searchParams]
-  )
+  );
 
   const handleOnNext = useCallback(
     (data: Partial<LoanApplication>) => {
-      const id = searchParams.get("id")
-      const updatedValues = { ...values, ...data }
+      const id = searchParams.get("id");
+      const updatedValues = { ...values, ...data };
       createOrUpdateApplication(updatedValues, id)
         .then(({ uuid }) => {
-          setValues(updatedValues)
-          notify("success", "Submitted successfully")
+          setValues(updatedValues);
+          notify("success", "Submitted successfully");
           onNext((step) => {
-            setSearchParams({ id: uuid, step })
-          })
+            setSearchParams({ id: uuid, step });
+          });
         })
         .catch(() => {
-          notify("error", "Failed to submit. Please try again later")
-        })
+          notify("error", "Failed to submit. Please try again later");
+        });
     },
     [searchParams, onNext, values]
-  )
+  );
 
   const getValues = useCallback(
     (schema: z.Schema) => $getValues(values, schema),
     [values]
-  )
+  );
 
   return (
     <div className="max-w-md mx-auto">
@@ -122,7 +122,7 @@ export function LoanApplication(props: LoanApplicationProps) {
         />
       )}
     </div>
-  )
+  );
 }
 
-export { LoanApplicationSchema } from "./schema"
+export { LoanApplicationSchema } from "./schema";

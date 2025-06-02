@@ -19,7 +19,7 @@ export function ContactDetails(props: ContactDetailsProps) {
     resolver: zodResolver(ContractDetailsSchema),
     defaultValues: props.values,
     mode: "onChange",
-  })
+  });
 
   return (
     <Step title="(2) Contract Details">

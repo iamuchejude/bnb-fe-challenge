@@ -20,7 +20,7 @@ export const LoanApplicationSchema = z
         code: z.ZodIssueCode.custom,
         message: "Age + loan term must be less than 80 years",
         path: ["confirmed"],
-      })
+      });
     }
 
     if (hasOverpaidUpfront(data)) {
@@ -28,7 +28,7 @@ export const LoanApplicationSchema = z
         code: z.ZodIssueCode.custom,
         message: "Upfront payment must be less than loan amount",
         path: ["confirmed"],
-      })
+      });
     }
 
     if (hasOverpaidUpfront(data)) {
@@ -36,7 +36,7 @@ export const LoanApplicationSchema = z
         code: z.ZodIssueCode.custom,
         message: "Upfront payment must be less than loan amount",
         path: ["confirmed"],
-      })
+      });
     }
 
     if (!canAfford(data)) {

@@ -18,7 +18,7 @@ export function PersonalInformation(props: PersonalInformationProps) {
     resolver: zodResolver(PersonalInformationSchema),
     defaultValues: props.values,
     mode: "onChange",
-  })
+  });
 
   return (
     <Step title="(1) Personal Information">

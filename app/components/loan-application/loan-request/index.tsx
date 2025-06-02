@@ -19,7 +19,7 @@ export function LoanRequest(props: LoanRequestProps) {
     resolver: zodResolver(LoanRequestSchema),
     defaultValues: props.values,
     mode: "onChange",
-  })
+  });
 
   return (
     <Step title="(3) Loan Request">
