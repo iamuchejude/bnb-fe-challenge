@@ -45,6 +45,7 @@ export function LoanApplication(props: LoanApplicationProps) {
             "success",
             "We've received your application! We'll now review and get back to you",
           );
+          setValues({})
           navigate("/");
         })
         .catch(() => {

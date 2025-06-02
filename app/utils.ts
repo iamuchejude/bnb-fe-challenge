@@ -28,10 +28,3 @@ export function appendTo(
   for (const key in updates) newParams.set(key, updates[key])
   return newParams
 }
-
-export function toSentenceCase(input: string) {
-  const sentence = input
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, (str) => str.toUpperCase())
-  return sentence.trim()
-}
