@@ -1,66 +1,59 @@
-import { useCallback, useMemo } from "react";
-import { useSearchParams } from "react-router";
-import { appendTo } from "~/utils";
+import { useCallback, useState } from "react"
 
 export const Steps = {
   PersonalInformation: "PersonalInformation",
-  ContactDetils: "ContactDetils",
+  ContactDetails: "ContactDetails",
   LoanRequest: "LoanRequest",
   FinancialInformation: "FinancialInformation",
   Finalization: "Finalization",
-} as const;
+} as const
 
-const StepsToNextStep = {
-  PersonalInformation: "ContactDetils",
-  ContactDetils: "LoanRequest",
+const StepsToNextStepMap = {
+  PersonalInformation: "ContactDetails",
+  ContactDetails: "LoanRequest",
   LoanRequest: "FinancialInformation",
   FinancialInformation: "Finalization",
-} as Record<Step, Step>;
+} as Record<Step, Step>
 
-const StepsToPreviousStep = {
-  ContactDetils: "PersonalInformation",
-  LoanRequest: "ContactDetils",
+const StepsToPreviousStepMap = {
+  ContactDetails: "PersonalInformation",
+  LoanRequest: "ContactDetails",
   FinancialInformation: "LoanRequest",
   Finalization: "FinancialInformation",
-} as Record<Step, Step>;
+} as Record<Step, Step>
 
-type Step = (typeof Steps)[keyof typeof Steps];
+type Step = (typeof Steps)[keyof typeof Steps]
+type HandleUpdateStepFn = (step: Step) => void
 
 export function useSteps(start = Steps.PersonalInformation) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentStep, setCurrentStep] = useState<Step>(start)
 
-  const currentStep = useMemo(() => {
-    const step = searchParams.get("step");
-    if (!step || !(step in Steps)) return start;
-    return step as Step;
-  }, [searchParams]);
+  const onNext = useCallback(
+    (onUpdate?: HandleUpdateStepFn) => {
+      const nextStep = StepsToNextStepMap[currentStep]
+      if (nextStep) {
+        setCurrentStep(nextStep)
+        onUpdate?.(nextStep)
+      }
+    },
+    [currentStep]
+  )
 
-  const onNext = useCallback(() => {
-    const nextStep = StepsToNextStep[currentStep];
-    if (nextStep) {
-      setSearchParams(
-        appendTo(searchParams, {
-          step: nextStep,
-        }),
-      );
-    }
-  }, [currentStep, searchParams]);
-
-  const onPrevious = useCallback(() => {
-    const previousStep = StepsToPreviousStep[currentStep];
-    if (previousStep) {
-      setSearchParams(
-        appendTo(searchParams, {
-          step: previousStep,
-        }),
-      );
-    }
-  }, [currentStep, searchParams]);
+  const onPrevious = useCallback(
+    (onUpdate?: HandleUpdateStepFn) => {
+      const previousStep = StepsToPreviousStepMap[currentStep]
+      if (previousStep) {
+        setCurrentStep(previousStep)
+        onUpdate?.(previousStep)
+      }
+    },
+    [currentStep]
+  )
 
   const isCurrent = useCallback(
     (step: Step) => currentStep === step,
-    [currentStep],
-  );
+    [currentStep]
+  )
 
-  return { isCurrent, onNext, onPrevious };
+  return { isCurrent, onNext, onPrevious }
 }
